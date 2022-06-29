@@ -2,9 +2,9 @@
     include("./functions.php"); 
 	$db = new Categories();
 	$allProduct = $db->category();
-	echo "<pre>";  
-	print_r($allProduct);  
-	echo "</pre>"; 
+	// echo "<pre>";  
+	// print_r($allProduct);  
+	// echo "</pre>"; 
 ?>
 
 <!DOCTYPE html>

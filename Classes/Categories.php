@@ -4,7 +4,7 @@ require_once './Database.php';
 
 class Categories extends Database
 {
-    protected $conn = '';
+    public $conn = '';
     public function __construct()
     {
         $conn= $this->connected();
