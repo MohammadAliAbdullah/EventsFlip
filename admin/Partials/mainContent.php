@@ -1,3 +1,8 @@
+<?php 
+if(Session::exists('home')) {
+    echo '<p>' . Session::flash('home'). '</p>';
+}
+?>
 <div class="row">
     <div class="col-lg-3">
         <div class="card">

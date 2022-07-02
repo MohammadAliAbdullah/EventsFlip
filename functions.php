@@ -1,28 +1,41 @@
 <?php
 
-function autoLoad($class)
+require_once 'env.php';
+
+// public controller/ all file in the view page and config.
+function controllerLoad($controller)
 {
-    $base_directory = __DIR__ . '/Classes/';
-    $file = $base_directory . $class . '.php';
+    $baseDirectory = __DIR__ . '/controller/';
+    $file = $baseDirectory . $controller . '.php';
     
     if(file_exists($file)) {
       require $file;
     }
 }
-spl_autoload_register('autoLoad');
+// public config/ all file in the view page and controller.
+function configLoad($config)
+{
+    $baseDirectory = __DIR__ . '/config/';
+    $file = $baseDirectory . $config . '.php';
+    
+    if(file_exists($file)) {
+      require $file;
+    }
+}
 
-// spl_autoload_register(function ($class) {
-//     $prefix = 'Classes\\';
-//     $length = strlen($prefix);
-//     $base_directory = __DIR__ . '/Classes/';
-//     if (strncmp($prefix, $class, $length) !== 0) {
-//         return;
-//     }
+spl_autoload_register('controllerLoad');
+spl_autoload_register('configLoad');
 
-//     $class_end = substr($class, $length);
-//     $file = $base_directory . str_replace('\\', '/', $class_end) . '.php';
+function escape($string) {
+  return htmlentities($string, ENT_QUOTES, 'UTF-8');
+}
 
-//     if (file_exists($file)) {
-//         echo $file;
-//     }
-// });
+if(Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('sessions/session_name'))) {
+  $hash = Cookie::get(Config::get('remember/cookie_name'));
+  $hashCheck = DB::getInstance()->get('users_session', array('hash', '=', $hash));
+
+  if($hashCheck->count()) {
+      $user = new User($hashCheck->first()->user_id);
+      $user->login();
+  }
+}

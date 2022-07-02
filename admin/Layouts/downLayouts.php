@@ -1,6 +1,6 @@
 </section>
-<?php require __DIR__ . '/../Partials/footer.php' ?>
+<?php require __DIR__ . '/../partials/footer.php' ?>
 </div>
 </div>
 </div>
-<?php require __DIR__ . '/../Partials/bottomFooter.php' ?>
+<?php require __DIR__ . '/../partials/bottomFooter.php' ?>
